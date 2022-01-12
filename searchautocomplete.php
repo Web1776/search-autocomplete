@@ -526,7 +526,7 @@ class SearchAutocomplete {
 		return $valid;
 	}
 
-	public function activate( $network_wide ) {
+	public function activate() {
 		if ( get_option( 'sa_settings' ) === false ) {
 			update_option( 'sa_settings', self::$options_init );
 		} else {
@@ -539,6 +539,6 @@ class SearchAutocomplete {
 	}
 }
 
-register_activation_hook( __FILE__, array( 'SearchAutocomplete', 'activate' ) );
+register_activation_hook( __FILE__, function(){ $SearchAutocomplete = new SearchAutocomplete(); $SearchAutocomplete->activate(); } );
 
 $SearchAutocomplete = new SearchAutocomplete();

@@ -127,6 +127,9 @@ class SearchAutocomplete {
 		$term         = sanitize_text_field( $_GET['term'] );
 		if ( count( $this->options['autocomplete_posttypes'] ) > 0 ) {
 			if ( ( function_exists( 'relevanssi_do_query' ) && ( $this->options['autocomplete_relevanssi'] !== 'false' ) ) ) {
+				if( is_a($query, 'WP_Query') === false ){
+					$query = new WP_Query();
+				}
 				$query->query_vars['s']              = $term;
 				$query->query_vars['posts_per_page'] = $this->options['autocomplete_numrows'];
 				$query->query_vars['post_type']      = $this->options['autocomplete_posttypes'];
